@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Clone') {
+      steps { git 'https://github.com/YOUR_USERNAME/nextastra-devlogin-app.git' }
+    }
+
+    stage('Install') {
+      steps { sh 'npm install' }
+    }
+
+    stage('Test') {
+      steps { sh 'npm test' }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh '''
+        pm2 delete nextastra-app || true
+        pm2 start app.js --name nextastra-app
+        pm2 save
+        '''
+      }
+    }
+  }
+}
