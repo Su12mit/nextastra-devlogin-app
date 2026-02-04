@@ -1,51 +1,44 @@
-output "public_ip" {
-  value = aws_instance.devops_server.public_ip
+output "instance_public_ip" {
+  description = "Public IP of the EC2 instance"
+  value       = aws_instance.devops_server.public_ip
 }
-output "public_dns" {
-  value = aws_instance.devops_server.public_dns
+
+output "instance_public_dns" {
+  description = "Public DNS of the EC2 instance"
+  value       = aws_instance.devops_server.public_dns
 }
-output "private_ip" {
-  value = aws_instance.devops_server.private_ip
+
+output "instance_private_ip" {
+  description = "Private IP of the EC2 instance"
+  value       = aws_instance.devops_server.private_ip
 }
-output "private_dns" {
-  value = aws_instance.devops_server.private_dns
+
+output "availability_zone" {
+  description = "Availability Zone of the EC2 instance"
+  value       = aws_instance.devops_server.availability_zone
 }
-output "ami" {
-  value = aws_instance.devops_server.ami
-}
-output "instance_type" {
-  value = aws_instance.devops_server.instance_type
-}
+
 output "vpc_id" {
-  value = aws_instance.devops_server.vpc_id
+  description = "ID of the created VPC"
+  value       = aws_vpc.devops_vpc.id
 }
-output "subnet_id" {
-  value = aws_instance.devops_server.subnet_id
+
+output "public_subnet_id" {
+  description = "ID of the public subnet"
+  value       = aws_subnet.public_subnet.id
 }
-output "security_groups" {
-  value = aws_instance.devops_server.security_groups
+
+output "security_group_id" {
+  description = "Security Group attached to the EC2 instance"
+  value       = aws_security_group.devops_sg.id
 }
-output "key_name" {
-  value = aws_instance.devops_server.key_name
+
+output "jenkins_url" {
+  description = "Access Jenkins UI"
+  value       = "http://${aws_instance.devops_server.public_dns}:8080"
 }
-output "tags" {
-  value = aws_instance.devops_server.tags
-}
-output "user_data" {
-  value = aws_instance.devops_server.user_data
-}
-output "iam_instance_profile" {
-  value = aws_instance.devops_server.iam_instance_profile
-}
-output "root_block_device" {
-  value = aws_instance.devops_server.root_block_device
-}
-output "ebs_block_device" {
-  value = aws_instance.devops_server.ebs_block_device
-}
-output "timeouts" {
-  value = aws_instance.devops_server.timeouts
-}
-output "arn" {
-  value = aws_instance.devops_server.arn
+
+output "app_url_http" {
+  description = "Application URL over HTTP (before SSL)"
+  value       = "http://${aws_instance.devops_server.public_dns}"
 }

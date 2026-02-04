@@ -3,7 +3,7 @@ pipeline {
 
   stages {
     stage('Clone') {
-      steps { git 'https://github.com/YOUR_USERNAME/nextastra-devlogin-app.git' }
+      steps { git 'https://github.com/Su12mit/nextastra-devlogin-app.git' }
     }
 
     stage('Install') {
