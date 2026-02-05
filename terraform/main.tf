@@ -40,6 +40,16 @@ resource "aws_route_table_association" "public_assoc" {
   route_table_id = aws_route_table.public_rt.id
 }
 
+# ---------------- Key Pair  ----------------
+resource "aws_key_pair" "devops_key" {
+  key_name   = "devops-key"
+  public_key = file("${path.module}/devops-key.pem.pub")
+
+  tags = {
+    Name = "devops-key"
+  }
+}
+
 # ---------------- Security Group ----------------
 resource "aws_security_group" "devops_sg" {
   name   = "devops-sg"
@@ -91,7 +101,7 @@ resource "aws_security_group" "devops_sg" {
 resource "aws_instance" "devops_server" {
   ami                         = "ami-019715e0d74f695be"
   instance_type               = var.instance_type
-  key_name                    = var.key_name
+  key_name = aws_key_pair.devops_key.key_name
   subnet_id                   = aws_subnet.public_subnet.id
   vpc_security_group_ids      = [aws_security_group.devops_sg.id]
   associate_public_ip_address = true
